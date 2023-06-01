@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.dupe'
+version '1.0.0'
+
+mainClassName = 'org.dupe.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "junit:junit:4.12"
+}
+
+test {
+    useJUnitPlatform()
+}
+
