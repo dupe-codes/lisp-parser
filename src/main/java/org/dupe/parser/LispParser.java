@@ -25,6 +25,9 @@ public final class LispParser {
             // pop off the stack until the open paren is seen, the node right before
             // the open paren is the root node, and all the other nodes popped
             // off are the children
+            // OR, pop off the stack after seeing a closing paren until the first
+            // operator or function is seen; that is the root node, and the rest are
+            // children
             if (token.equals(CLOSE_EXPR)) {
                 ASTNode right = nodes.pop();
                 ASTNode left = nodes.pop();
