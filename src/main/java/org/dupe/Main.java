@@ -1,10 +1,10 @@
 package org.dupe;
 
-import org.dupe.ast.LispParser;
-
 import java.util.List;
 
-public class Main {
+import org.dupe.parser.LispParser;
+
+public final class Main {
 
   public static void main(String[] args) {
     var testExprs = List.of(
@@ -15,7 +15,6 @@ public class Main {
             "(max 2 (+ 3 4))",
             "(max (+ (+ 4 5) (+ 1 1)) (- 10 3))"
     );
-
     testExprs.stream().forEach(Main::parseTestExpr);
   }
 

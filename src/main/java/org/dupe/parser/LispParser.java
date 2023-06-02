@@ -1,8 +1,11 @@
-package org.dupe.ast;
+package org.dupe.parser;
 
 import java.util.Stack;
 
-public class LispParser {
+import org.dupe.ast.ASTNode;
+import org.dupe.ast.TokenType;
+
+public final class LispParser {
 
     private static final String OPEN_EXPR = "(";
     private static final String CLOSE_EXPR = ")";
