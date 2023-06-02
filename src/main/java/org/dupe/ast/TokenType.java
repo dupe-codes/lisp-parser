@@ -1,7 +1,7 @@
 package org.dupe.ast;
 
 public enum TokenType {
-    LITERAL,
+    LITERAL, // Only supports Longs for now
     BUILTIN_FN, // Plan to implement a symbol table for built-in functions
     PLUS,
     MINUS;
@@ -18,7 +18,7 @@ public enum TokenType {
                     return TokenType.LITERAL;
                 } catch (NumberFormatException e) {
                     // If it's not a number, assume the token is a reference
-                    // to a built-in function.
+                    // to a built-in function
                     return BUILTIN_FN;
                 }
         }

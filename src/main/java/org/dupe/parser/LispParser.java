@@ -10,8 +10,9 @@ public final class LispParser {
     private static final String OPEN_EXPR = "(";
     private static final String CLOSE_EXPR = ")";
 
+    // TODO: Add error handling for invalid expressions
+    //       For now, we assume the given expression is well-formed
     public static ASTNode parse(String expr) {
-        // TODO: Add error handling for invalid expressions
         var tokens = tokenize(expr);
 
         Stack<ASTNode> nodes = new Stack<>();
@@ -21,7 +22,7 @@ public final class LispParser {
             }
 
             // TODO: Change this to handle unary or multi argument operators
-            // IDEA: have a token type for open parens, when closed paren is seen
+            // IDEA: Have a token type for open parens, when closed paren is seen
             // pop off the stack until the open paren is seen, the node right before
             // the open paren is the root node, and all the other nodes popped
             // off are the children
