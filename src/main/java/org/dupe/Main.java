@@ -5,8 +5,9 @@ import org.dupe.ast.LispParser;
 import java.util.List;
 
 public class Main {
+
   public static void main(String[] args) {
-    List<String> testExprs = List.of(
+    var testExprs = List.of(
             "(+ 2 3)",
             "(- 3 4)",
             "(+ (+ 2 3) 4)",
@@ -19,7 +20,7 @@ public class Main {
   }
 
   private static void parseTestExpr(String expr) {
-    String output = String.format(
+    var output = String.format(
             "Parsing %s...\n %s",
             expr,
             LispParser.parse(expr)

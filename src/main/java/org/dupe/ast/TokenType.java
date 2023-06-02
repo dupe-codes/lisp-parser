@@ -2,7 +2,7 @@ package org.dupe.ast;
 
 public enum TokenType {
     LITERAL,
-    BUILTIN_FN,
+    BUILTIN_FN, // Plan to implement a symbol table for built-in functions
     PLUS,
     MINUS;
 

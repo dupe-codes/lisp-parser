@@ -18,8 +18,7 @@ public class ASTNode {
     @Nullable
     private final String fnName;
 
-    // TODO: This assume binary operators and functions. Expand to handle
-    //       unary and multi-arg
+    // TODO: Assumes binary operators/functions. Expand to handle unary and multi-arg
     @Nullable
     private final ASTNode leftSubExpr;
     @Nullable

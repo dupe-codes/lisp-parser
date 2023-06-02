@@ -18,10 +18,10 @@ public class LispParser {
             }
 
             // TODO: Change this to handle unary or multi argument operators
-            //       IDEA: have a token type for open parens, when closed paren is seen
-            //       pop off the stack until the open paren is seen, the node right before
-            //       the open paren is the root node, and all the other nodes popped 
-            //       off are the children
+            // IDEA: have a token type for open parens, when closed paren is seen
+            // pop off the stack until the open paren is seen, the node right before
+            // the open paren is the root node, and all the other nodes popped
+            // off are the children
             if (token.equals(CLOSE_EXPR)) {
                 ASTNode right = nodes.pop();
                 ASTNode left = nodes.pop();
