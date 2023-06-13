@@ -1,10 +1,18 @@
 package org.dupe.parser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import org.dupe.ast.ASTNode;
 import org.dupe.ast.TokenType;
 
+/**
+ * Parses Lisp expressions into an AST
+ *
+ * <p>A brief Lisp language overview:
+ *  {@link https://courses.cs.vt.edu/~cs1104/TowerOfBabel/LISP/Lisp.outline.html}
+ */
 public final class LispParser {
 
     private static final String OPEN_EXPR = "(";
@@ -18,6 +26,7 @@ public final class LispParser {
         Stack<ASTNode> nodes = new Stack<>();
         for (String token : tokens) {
             if (token.equals(OPEN_EXPR)) {
+                nodes.push(ASTNode.openParen());
                 continue;
             }
 
@@ -26,14 +35,17 @@ public final class LispParser {
             // pop off the stack until the open paren is seen, the node right before
             // the open paren is the root node, and all the other nodes popped
             // off are the children
-            // OR, pop off the stack after seeing a closing paren until the first
-            // operator or function is seen; that is the root node, and the rest are
-            // children
+            // We need this approach because the first tokens after an open paren
+            // may be another paren encosed expression
             if (token.equals(CLOSE_EXPR)) {
-                ASTNode right = nodes.pop();
-                ASTNode left = nodes.pop();
-                ASTNode root = nodes.pop();
-                nodes.push(root.withSubExprs(left, right));
+                ASTNode curr = nodes.pop();
+                List<ASTNode> args = new ArrayList<>();
+                while (curr.getType() != TokenType.OPEN_PAREN) {
+                    args.add(curr);
+                    curr = nodes.pop();
+                }
+                ASTNode root = args.isEmpty() ? curr : args.remove(0);
+                nodes.push(root.withSubExprs(args));
                 continue;
             }
 

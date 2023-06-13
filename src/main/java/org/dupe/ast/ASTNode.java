@@ -1,5 +1,6 @@
 package org.dupe.ast;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
@@ -16,6 +17,10 @@ public class ASTNode {
 
     public static ASTNode builtinFn(String fnName, ASTNode left, ASTNode right) {
         return new ASTNode(TokenType.BUILTIN_FN, null, fnName, left, right);
+    }
+
+    public static ASTNode openParen() {
+        return new ASTNode(TokenType.OPEN_PAREN, null, null, null, null);
     }
 
     private final TokenType type;
@@ -37,6 +42,8 @@ public class ASTNode {
     @Nullable
     private final ASTNode rightSubExpr;
 
+    private final List<ASTNode> subExprs;
+
     // Private constructor: use static factory methods instead
     private ASTNode(
             TokenType type,
@@ -49,6 +56,24 @@ public class ASTNode {
         this.fnName = fnName;
         this.leftSubExpr = leftSubExpr;
         this.rightSubExpr = rightSubExpr;
+        this.subExprs = List.of();
+    }
+
+    private ASTNode(
+            TokenType type,
+            @Nullable Long value,
+            @Nullable String fnName,
+            List<ASTNode> subExprs) {
+        this.type = type;
+        this.value = value;
+        this.fnName = fnName;
+        this.leftSubExpr = null;
+        this.rightSubExpr = null;
+        this.subExprs = subExprs;
+    }
+
+    public boolean isLiteral() {
+        return type == TokenType.LITERAL;
     }
 
     public TokenType getType() {
@@ -73,6 +98,10 @@ public class ASTNode {
 
     public ASTNode withSubExprs(ASTNode left, ASTNode right) {
         return new ASTNode(type, value, fnName, left, right);
+    }
+
+    public ASTNode withSubExprs(List<ASTNode> subExprs) {
+        return new ASTNode(type, value, fnName, subExprs);
     }
 
     public String toString() {

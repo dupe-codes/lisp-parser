@@ -3,6 +3,7 @@ package org.dupe.ast;
 public enum TokenType {
     LITERAL, // Only supports Longs for now
     BUILTIN_FN, // Plan to implement a symbol table for built-in functions
+    OPEN_PAREN,
     PLUS,
     MINUS;
 
@@ -12,6 +13,8 @@ public enum TokenType {
                 return PLUS;
             case "-":
                 return MINUS;
+            case "(":
+                return OPEN_PAREN;
             default:
                 try {
                     Long.parseLong(token);
@@ -22,6 +25,18 @@ public enum TokenType {
                     return BUILTIN_FN;
                 }
         }
+    }
 
+    public static long eval(TokenType type, long left, long right) {
+        switch(type) {
+            case PLUS:
+                return left + right;
+            case MINUS:
+                return left - right;
+            default:
+                throw new IllegalArgumentException(
+                        String.format("Cannot evaluate token type: %s", type)
+                );
+        }
     }
 }
